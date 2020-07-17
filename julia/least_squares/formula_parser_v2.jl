@@ -8,7 +8,7 @@ function parseFormula(formula::String,data::Dict)
     coef_labels = []
     M = Array{Any}(undef,0,0)
 
-    for key in keys(data) @eval const $key = data[$(QuoteNode(key))] end
+    for key in keys(data) @eval $key = data[$(QuoteNode(key))] end
     dep = eval(Meta.parse(lhs))
 
     # add a vector of ones to represent an intercept term
