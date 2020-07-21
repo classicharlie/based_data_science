@@ -26,7 +26,7 @@ function ls(formula::String,data::Dict)
 
     A = parsed[1]
     b = parsed[2]
-    n = length(b)
+    n,m = size(A)
     
     # left division, or "\", is like inversion
     betas  = (A'*A)\(A'*b)
@@ -39,7 +39,7 @@ function ls(formula::String,data::Dict)
     ssr = sst-sse
 
     # find the standard errors and eventually t-values
-    σ² = sse/(n-2)
+    σ² = sse/(n-m)
     invA = inv(A'*A)
     se = [sqrt(σ²*invA[i,i]) for i in 1:size(betas,1)]
 
