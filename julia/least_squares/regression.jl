@@ -10,11 +10,12 @@ end
 
 # custom method to print the regression table all nice and fancy
 function Base.show(io::IO,z::LeastSquares)
-    println(io,"\t\tβ\tse")
+    println(io,"\t\tβ\tse\tt")
     for k in keys(z.betas)
         print(io,"$(@sprintf("%12s",k))","\t",
             "$(@sprintf("%.2f",z.betas[k][1]))\t",
-            "$(@sprintf("%.4f",z.betas[k][2]))\n")
+            "$(@sprintf("%.3f",z.betas[k][2]))\t",
+            "$(@sprintf("%.3f",z.betas[k][3]))\n")
     end
     print(io,"\n\tR²:  $(@sprintf("%.4f",z.r_squared))")
 end
@@ -42,8 +43,9 @@ function ls(formula::String,data::Dict)
     σ² = sse/(n-m)
     invA = inv(A'*A)
     se = [sqrt(σ²*invA[i,i]) for i in 1:size(betas,1)]
+    t  = [betas[i]/se[i] for i in 1:m]
 
-    betas_labelled = Dict(zip(labels,zip(betas,se)))
+    betas_labelled = Dict(zip(labels,zip(betas,se,t)))
     model = LeastSquares(betas_labelled,1-(sse/sst))
 
     return model
