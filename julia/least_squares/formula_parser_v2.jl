@@ -23,6 +23,7 @@ function parseFormula(formula::String,data::Dict)
     for trm in terms
         coef_labels = push!(coef_labels,string(trm))
         trm = replace(trm,"^" => ".^")
+        trm = replace(trm,"*" => ".*")
         ex = eval(Meta.parse(trm))
         M = hcat(M,ex)
     end
