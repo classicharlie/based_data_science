@@ -9,7 +9,7 @@ function readCSV(filepath::String)
 
 	# Not as efficient as python, but it does the job in less code
 	open(filepath) do file
-		header = split(readline(file),",")
+		header = map(x->replace(x," "=>"_"),split(readline(file),","))
 		[data[col]=[] for col in header]
 		rows = [split(line,",") for line in readlines(file)]
 
