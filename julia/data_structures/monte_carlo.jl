@@ -18,12 +18,12 @@ function monteCarlo(data::Array,num_sims::Int,sim_obs::Int)
     μ = sum(data)/num_obs
     σ = sqrt(sum((data.-μ).^2)/num_obs)
 
-    mtx = ones(num_sims,sim_obs)
+    mtx = ones(sim_obs,num_sims)
     mtx[idx(1,1)] = data[1]
 
-    for j in 1:sim_obs
+    for j in 1:num_sims
         mtx[idx(1,j)] = data[1]*exp(rand(Normal(μ,σ)))
-        for i in 2:num_sims
+        for i in 2:sim_obs
             mtx[idx(i,j)] = mtx[idx(i-1,j)]*exp(rand(Normal(μ,σ)))
         end
     end
