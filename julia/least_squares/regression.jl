@@ -1,5 +1,6 @@
 # least squares parser and algorithm Julia implementation
 include("./formula_parser_v2.jl")
+include("./t_test.jl")
 using Printf
 
 # create a struct to contain the necessary info for a LS model
@@ -25,7 +26,6 @@ end
 # convert t-value to p-value
 function pValue(t_value::Float64,df::Int64)
     # find the corresponding df
-    include("./t_test.jl")
     for k in df_keys
         global idx
         if k <= df
