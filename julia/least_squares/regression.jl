@@ -59,10 +59,10 @@ function ls(formula::String,data::Dict)
     n,m = size(A)
     df = n-m
     
-    # left division, or "\", is like inversion
+    # technically β = A\b is more accurate, but this is faster
     β = (A'*A)\(A'*b)
     ϵ = b-A*β
-    b_hat  = sum(b)/n
+    b_hat = sum(b)/n
 
     # find r-squared using sum of squares
     sse = ϵ'*ϵ
@@ -85,9 +85,9 @@ end
 
 
 data = Dict(
-    :x => [0,1,2,3],
-    :z => [1,5,4,9],
-    :y => [1,0,2,2]
+    :x => [0.0,1.0,2.0,3.0],
+    :z => [1.0,5.0,4.0,9.0],
+    :y => [1.0,0.0,2.0,2.0]
 )
 
 ls("y ~ x*z + z^2 + 1",data)
