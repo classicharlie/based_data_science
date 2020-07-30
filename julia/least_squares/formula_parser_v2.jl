@@ -35,5 +35,3 @@ data = Dict(
     :z => [1,5,4,9],
     :y => [1,0,2,2]
 )
-
-@code_warntype parseFormula("y ~ x*z + z^2 + 1",data)
