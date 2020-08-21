@@ -13,9 +13,9 @@ function adjustX(min_x,max_x,initial_x)
     new_x = [initial_x]
     push!(new_x,(max_x+min_x)/2)
 
-    for t in 2:T+1
-        push!(new_x,β*new_x[t]/(1+β))
-        # push!(new_x,(1+β)*new_x[t-1]-β*new_x[t-2])
+    for t in 3:T+2
+        # push!(new_x,β*new_x[t]/(1+β))
+        push!(new_x,(1+β)*new_x[t-1]-β*new_x[t-2])
     end
 
     return new_x
@@ -38,4 +38,7 @@ while true
     x = adjustX(min_x,max_x,x[1])
 end
 
-x
+println(x)
+
+c = [x[t]-x[t+1] for t in 1:T-1]
+sum([β^(t-1)*log(c[t]) for t in 1:T-1])

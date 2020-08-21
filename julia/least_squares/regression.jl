@@ -62,12 +62,12 @@ function ls(formula::String,data::Dict)
     # technically β = A\b is more accurate, but this is faster
     β = (A'*A)\(A'*b)
     ϵ = b-A*β
-    b_hat = sum(b)/n
+    b_bar = sum(b)/n
 
     # find r-squared using sum of squares
-    sse = ϵ'*ϵ
-    sst = b'*b-(n*b_hat^2)
-    ssr = sst-sse
+    ssr = ϵ'*ϵ
+    sst = b'*b-(n*b_bar^2)
+    sse = sst-ssr
 
     # find the standard errors and eventually t-values
     σ² = sse/df
